@@ -1,3 +1,4 @@
+// main.js (modified executor app only; other apps unchanged)
 // Entrypoint: registers all apps/pages/widgets for context menu and launcher
 
 window.Apps = window.Apps || {};
@@ -42,15 +43,14 @@ Apps.executor = {
       status.textContent = "Please enter HTML or code to execute.";
       return;
     }
-    const win = window.open();
-    if (!win) {
-      status.textContent = "Popup blocked! Please allow popups for this site.";
-      return;
-    }
-    const blob = new Blob([html], { type: "text/html" });
-    const blobUrl = URL.createObjectURL(blob);
-    win.location = blobUrl;
-    status.textContent = "Executed in new tab.";
+    const appInfo = {
+      title: 'Executed HTML',
+      content: () => `<iframe srcdoc="${html.replace(/"/g, '&quot;')}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin"></iframe>`
+    };
+    const win = WindowManager.create(appInfo);
+    const maxBtn = win.querySelector('button[title="Maximize"]');
+    WindowManager.maximize(maxBtn);
+    status.textContent = "Executed in window.";
     setTimeout(() => { status.textContent = ""; }, 3000);
   },
   executeUploadedFile() {
@@ -63,15 +63,15 @@ Apps.executor = {
     }
     const reader = new FileReader();
     reader.onload = function(e) {
-      const win = window.open();
-      if (!win) {
-        status.textContent = "Popup blocked! Please allow popups for this site.";
-        return;
-      }
-      const blob = new Blob([e.target.result], { type: "text/html" });
-      const blobUrl = URL.createObjectURL(blob);
-      win.location = blobUrl;
-      status.textContent = "File executed in new tab.";
+      const html = e.target.result;
+      const appInfo = {
+        title: file.name || 'Executed File',
+        content: () => `<iframe srcdoc="${html.replace(/"/g, '&quot;')}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin"></iframe>`
+      };
+      const win = WindowManager.create(appInfo);
+      const maxBtn = win.querySelector('button[title="Maximize"]');
+      WindowManager.maximize(maxBtn);
+      status.textContent = "File executed in window.";
       setTimeout(() => { status.textContent = ""; }, 3000);
     };
     reader.onerror = function() {
