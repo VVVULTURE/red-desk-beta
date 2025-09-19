@@ -2,7 +2,7 @@
 
 window.WindowManager = {
   windows: [],
-  z: 120,
+  z: 100,
   create(appInfo, opts={}) {
     const win = document.createElement('div');
     win.className = 'os-window active';
@@ -66,6 +66,8 @@ window.WindowManager = {
       win.style.top = win.dataset.top;
       win.style.width = win.dataset.width;
       win.style.height = win.dataset.height;
+      win.style.maxWidth = '';
+      win.style.maxHeight = '';
       win.dataset.maximized = '';
     } else {
       win.dataset.left = win.style.left;
@@ -76,6 +78,8 @@ window.WindowManager = {
       win.style.top = '0px';
       win.style.width = '100%';
       win.style.height = '100%';
+      win.style.maxWidth = 'none';
+      win.style.maxHeight = 'none';
       win.dataset.maximized = '1';
     }
   },
