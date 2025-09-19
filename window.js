@@ -74,8 +74,8 @@ window.WindowManager = {
       win.dataset.height = win.style.height;
       win.style.left = '0px';
       win.style.top = '0px';
-      win.style.width = '98vw';
-      win.style.height = '91vh';
+      win.style.width = '100%';
+      win.style.height = '100%';
       win.dataset.maximized = '1';
     }
   },
