@@ -2,7 +2,7 @@
 
 window.WindowManager = {
   windows: [],
-  z: 100,
+  z: 120,
   create(appInfo, opts={}) {
     const win = document.createElement('div');
     win.className = 'os-window active';
