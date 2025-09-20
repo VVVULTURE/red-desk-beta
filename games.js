@@ -1,4 +1,3 @@
-// games.js (modified)
 // Games App: Restored original Games page logic/UI
 
 window.Apps = window.Apps || {};
@@ -32,24 +31,46 @@ Apps.games = {
         <h1>Game Buttons</h1>
         <div class="game-btns">
           ${this.gamesList.map(game =>
-            `<button class="game-btn" onclick="Apps.games.openGame('${game.url}', '${game.name}')">${game.name}</button>`
+            `<button class="game-btn" onclick="Apps.games.openGame('${game.url}')">${game.name}</button>`
           ).join('')}
         </div>
         <p style="margin-top:2rem;opacity:0.8"><em>Remember to smile 😋</em></p>
       </section>
     `;
   },
-  openGame(url, name) {
+  openGame(url) {
+    const win = window.open();
+    if (!win) {
+      alert('Popup blocked! Please allow popups for this site.');
+      return;
+    }
     if (!url) {
+      win.document.write('<h1>Please configure the button with a real link!</h1>');
+      win.document.close();
       return;
     }
     if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-    const appInfo = {
-      title: name || 'Game',
-      content: () => `<iframe src="${url}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`
-    };
-    const win = WindowManager.create(appInfo);
-    const maxBtn = win.querySelector('button[title="Maximize"]');
-    WindowManager.maximize(maxBtn);
+    fetch(url)
+      .then(res => {
+        if (!res.ok) throw new Error('Fetch failed. Status: ' + res.status);
+        return res.text();
+      })
+      .then(html => {
+        const fixedHtml = this.injectBase(html, url);
+        const blob = new Blob([fixedHtml], { type: "text/html" });
+        const blobUrl = URL.createObjectURL(blob);
+        win.location = blobUrl;
+      })
+      .catch(e => {
+        win.document.open();
+        win.document.write('<h1>Failed to fetch content.</h1><pre>' + e.message + '</pre>');
+        win.document.close();
+      });
+  },
+  injectBase(html, url) {
+    return html.replace(
+      /<head[^>]*>/i,
+      match => `${match}<base href="${url.replace(/\/?$/, '/')}">`
+    );
   }
 };
