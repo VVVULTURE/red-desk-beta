@@ -1,4 +1,4 @@
-// games.js (modified for special Atari embed launches)
+// games.js (modified)
 // Games App: Restored original Games page logic/UI
 
 window.Apps = window.Apps || {};
@@ -40,28 +40,6 @@ Apps.games = {
     `;
   },
   openGame(url, name) {
-    // List of games that should use Atari embed
-    const atariGames = {
-      'Cookie Clicker': 'https://cookieclicker-nu.vercel.app',
-      'Dadish 2': 'https://dadish2.vercel.app/',
-      'Eaglercraft 1.8': 'https://eagler1-8-8-wasm-gc.vercel.app',
-      'Eaglercraft 1.12': 'https://math-class-school.vercel.app'
-    };
-
-    // If this game is in the special list, launch Atari embed
-    const isAtariGame = Object.entries(atariGames).find(([key, value]) =>
-      key === name && value === url
-    );
-
-    if (isAtariGame) {
-      // Compose atari embed blob link
-      // Example: https://atari-embeds.vercel.app/blob?url=<encoded original url>
-      const atariBlob = `https://atari-embeds.vercel.app/blob?url=${encodeURIComponent(url)}`;
-      window.open(atariBlob, '_blank');
-      return;
-    }
-
-    // Normal launch for other games
     if (!url) {
       return;
     }
