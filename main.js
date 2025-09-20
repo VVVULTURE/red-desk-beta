@@ -168,7 +168,6 @@ Apps.fileexplorer = {
   files: [
     {
       name: 'Example File.pdf',
-      outline: 'Google Drive PDF (auto download)',
       url: 'https://drive.google.com/uc?export=download&id=1I-Fhn3JIRIfR2t-ST585MiCTblrgFhQZ'
     }
     // Add more files here as needed
