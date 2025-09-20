@@ -19,6 +19,7 @@ Apps.games = {
     { name: 'Stickman hook', url: 'https://stickman-hook-five.vercel.app' },
     { name: 'Bitlife', url: 'https://bitlife1.vercel.app' },
     { name: 'Fancade', url: 'https://fancade-gules.vercel.app/' },
+    { name: '1v1.lol (Beta)', url: 'https://1v1-lol-online-github-io-ten.vercel.app/' },
   ],
   content() {
     return `
