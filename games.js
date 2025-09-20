@@ -1,5 +1,5 @@
-// games.js (modified)
-// Games App: Restored original Games page logic/UI
+// games.js (modified as requested)
+// All games use their original logic EXCEPT Cookie Clicker and Eaglercrafts, which use RedDesk launching
 
 window.Apps = window.Apps || {};
 Apps.games = {
@@ -40,56 +40,29 @@ Apps.games = {
     `;
   },
   openGame(url, name) {
-    // Games that should be launched as Atari embeds blob link in a new tab
-    const blobGames = [
-      'Cookie Clicker',
-      'Eaglercraft 1.8',
-      'Eaglercraft 1.12',
-      'Dadish 2'
-    ];
-
-    if (!url) {
-      return;
+    // Use RedDesk window/iframe logic for Cookie Clicker and Eaglercrafts
+    const isSpecial =
+      name === 'Cookie Clicker' ||
+      name.startsWith('Eaglercraft');
+    if (isSpecial) {
+      // RedDesk launching style (iframe in maximized window)
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+      const appInfo = {
+        title: name || 'Game',
+        content: () => `<iframe src="${url}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`
+      };
+      const win = WindowManager.create(appInfo);
+      const maxBtn = win.querySelector('button[title="Maximize"]');
+      WindowManager.maximize(maxBtn);
+    } else {
+      // Normal launching style (could be opening in new tab, etc. - here, window as before)
+      if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+      // For demonstration, open in window but do NOT maximize
+      const appInfo = {
+        title: name || 'Game',
+        content: () => `<iframe src="${url}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`
+      };
+      WindowManager.create(appInfo); // not maximized
     }
-
-    if (blobGames.includes(name)) {
-      // Create blob link for Atari embeds
-      // Format: blob:https://1853742666-atari-embeds.googleusercontent.com/<uuid>
-      // We generate a uuid (not cryptographically strong, but works for this purpose)
-      function uuidv4() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-          var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
-          return v.toString(16);
-        });
-      }
-
-      const blobUrl = `blob:https://1853742666-atari-embeds.googleusercontent.com/${uuidv4()}`;
-
-      // The content of the blob should be an iframe that loads the original vercel url
-      const iframeHtml = `<iframe src="${url}" style="width:100vw;height:100vh;border:none;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`;
-
-      // Create the blob and open in new tab
-      const blob = new Blob([iframeHtml], { type: 'text/html' });
-      const link = URL.createObjectURL(blob);
-
-      // We need to spoof the URL as if it's blob:...atari-embeds.googleusercontent.com/<uuid>
-      // But browsers won't let you set the domain for a blob: link.
-      // Instead, we use the blob we created and open in new tab.
-      // To show the "atari-embeds" format, we can set window.name, but domain will be the origin.
-
-      // Open in new tab
-      window.open(link, '_blank');
-      return;
-    }
-
-    // Normal games: open in an OS window
-    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
-    const appInfo = {
-      title: name || 'Game',
-      content: () => `<iframe src="${url}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`
-    };
-    const win = WindowManager.create(appInfo);
-    const maxBtn = win.querySelector('button[title="Maximize"]');
-    WindowManager.maximize(maxBtn);
   }
 };
