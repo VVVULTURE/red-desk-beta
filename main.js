@@ -171,47 +171,7 @@ Apps.fileexplorer = {
       url: 'https://drive.google.com/uc?export=download&id=1I-Fhn3JIRIfR2t-ST585MiCTblrgFhQZ'
     }
 
-    {
-  name: 'EagTexture Helixcraft 32x32',
-  url: 'https://drive.google.com/uc?export=download&id=1ztQbEdr68hPw-NinaBXJqLPlUTH217Xe'
-},
-{
-  name: 'EagTexture special 1.12.2',
-  url: 'https://drive.google.com/uc?export=download&id=17YSkJTqsaZB57z3HYoFzdTgTAPlnDE3N'
-},
-{
-  name: 'EagTexture Codecraft custom',
-  url: 'https://drive.google.com/uc?export=download&id=13OVXpz8_bhS3jNbWvo81vsUm6v4-cEeM'
-},
-{
-  name: 'EagTexture Better Water',
-  url: 'https://drive.google.com/uc?export=download&id=1nWuWl3fm3iHm7dWlyR-_yBSEPHLh-72Z'
-},
-{
-  name: 'EagTexture 1.16 textures for 1.12.2',
-  url: 'https://drive.google.com/uc?export=download&id=1Kd80kw-CrLYEJqN5Mg3RxH38wW5WcTEV'
-},
-{
-  name: 'Cookie Clicker Html',
-  url: 'https://drive.google.com/uc?export=download&id=1SkwfBg5VXIpQSGGa4U6R83R6o8TdgQm4'
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    // Add more files here as needed
+  // Add more files here as needed
   ],
   content() {
     return `
