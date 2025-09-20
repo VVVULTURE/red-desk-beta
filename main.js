@@ -159,13 +159,46 @@ Apps.terminal = {
   }
 };
 
-// File Explorer (virtual)
+// File Explorer (functional)
+// Define your files here; add more as needed
 Apps.fileexplorer = {
   title: 'File Explorer',
   icon: '🗂️',
   open(opts = {}) { WindowManager.create(this, opts); },
+  files: [
+    {
+      name: 'Example File.pdf',
+      outline: 'Google Drive PDF (auto download)',
+      url: 'https://drive.google.com/uc?export=download&id=1I-Fhn3JIRIfR2t-ST585MiCTblrgFhQZ'
+    }
+    // Add more files here as needed
+  ],
   content() {
-    return `<div>(File explorer coming soon!)</div>`;
+    return `
+      <div>
+        <h2>Files</h2>
+        <ul style="list-style:none;padding:0;">
+          ${this.files.map((file, idx) => `
+            <li style="margin:1rem 0;">
+              <button
+                style="background:var(--button);color:var(--primary);padding:0.8rem 1.4rem;font-size:1rem;border-radius:var(--radius);border:none;cursor:pointer;box-shadow:var(--shadow);width:100%;text-align:left;"
+                onclick="window.Apps.fileexplorer.openFile(${idx})"
+              >
+                <strong>${file.name}</strong>
+                <br>
+                <span style="opacity:0.7;font-size:0.9em;">${file.outline}</span>
+              </button>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
+  },
+  openFile(idx) {
+    const file = this.files[idx];
+    if (file && file.url) {
+      window.open(file.url, '_blank'); // Redirects out of OS to open in normal tab
+    }
   }
 };
 
