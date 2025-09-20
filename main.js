@@ -168,8 +168,15 @@ Apps.fileexplorer = {
   files: [
     {
       name: 'Compact Conflict.html',
-      url: 'https://drive.google.com/file/d/1-2j4syiWMUsqDPFxaqvKy9fyEtJEqFqa/view?usp=drive_link'
+      url: 'https://drive.google.com/uc?export=download&id=1I-Fhn3JIRIfR2t-ST585MiCTblrgFhQZ'
     }
+    {
+    name: 'Cookie Clicker.html',
+          url: 'https://drive.google.com/uc?export=download&id=1SkwfBg5VXIpQSGGa4U6R83R6o8TdgQm4'
+}
+
+
+    
     // Add more files at root if needed
   ],
   folders: [
@@ -177,19 +184,18 @@ Apps.fileexplorer = {
       name: 'Eag1.12.2 Textures',
       files: [
         {
-          name: 'Cookie CLicker.html',
-          url: 'https://drive.google.com/uc?export=download&id=1SkwfBg5VXIpQSGGa4U6R83R6o8TdgQm4'
+          name: 'Fnaf Textures',
+          url: 'https://drive.google.com/file/d/1_yZP7FiqHI09_SWFM7O625joMXYKc1mJ/view?usp=drive_link'
         },
         {
           name: 'Eag1.12.2 Texture 2.zip',
           url: 'https://drive.google.com/uc?export=download&id=1ztQbEdr68hPw-NinaBXJqLPlUTH217Xe'
         },
         {
-          name: 'Xray_1.12.2',
-      url: 'https://drive.google.com/uc?export=download&id=1I-Fhn3JIRIfR2t-ST585MiCTblrgFhQZ'
+name: 'Eag1.12.2 X-ray.zip',
+          url: 'https://drive.google.com/uc?export=download&id=1I-Fhn3JIRIfR2t-ST585MiCTblrgFhQZ'
 
         }
-        
         {
           name: 'Eag1.12.2 Texture 3.zip',
           url: 'https://drive.google.com/uc?export=download&id=17YSkJTqsaZB57z3HYoFzdTgTAPlnDE3N'
