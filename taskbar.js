@@ -1,7 +1,4 @@
-// Taskbar: pinned apps, start menu/app launcher
-
 window.Taskbar = {
-  // Add 'websitefetcher' to pinned apps
   pinned: ['websitefetcher', 'fetcher', 'texteditor', 'calculator', 'settings', 'terminal', 'fileexplorer', 'games', 'executor'],
   running: [],
   init() {
@@ -24,7 +21,7 @@ window.Taskbar = {
       if (!window.Apps[appId]) return;
       const btn = document.createElement('button');
       btn.className = 'taskbar-app' + (Taskbar.running.includes(appId) ? ' running' : '');
-      // Render icon as HTML (for image support)
+      // This line is critical:
       btn.innerHTML = window.Apps[appId].icon || '🗔';
       btn.title = window.Apps[appId].title;
       btn.onclick = () => window.Apps[appId].open();
