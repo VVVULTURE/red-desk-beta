@@ -151,10 +151,23 @@ Apps.terminal = {
   run() {
     const input = document.getElementById('terminal-input');
     const history = document.getElementById('terminal-history');
-    if (input.value.trim()) {
-      history.innerHTML += `<div style="color:var(--accent);">$ ${input.value}</div>`;
-      history.innerHTML += `<div>${input.value}</div>`;
+    const cmd = input.value.trim();
+    if (cmd) {
+      history.innerHTML += `<div style="color:var(--accent);">$ ${cmd}</div>`;
+      if (cmd === 'sudo apt install neofetch' || cmd === 'sudo apt run neofetch') {
+        const appInfo = {
+          title: 'neofetch',
+          content: () => `<img src="neofetch.png" style="width:100%;height:100%;object-fit:contain;background:black;">`
+        };
+        const win = WindowManager.create(appInfo, { width: '800px', height: '600px' });
+        const maxBtn = win.querySelector('button[title="Maximize"]');
+        WindowManager.maximize(maxBtn);
+        history.innerHTML += `<div>Opening neofetch output...</div>`;
+      } else {
+        history.innerHTML += `<div>${cmd}</div>`;
+      }
       input.value = '';
+      history.scrollTop = history.scrollHeight;
     }
   }
 };
