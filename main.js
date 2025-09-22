@@ -266,21 +266,17 @@ Apps.websitefetcher = {
         button:hover {
             background-color: #a00046;
         }
-        .logo {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            color: #ff004c;
-            text-shadow: 0 0 8px #ff004c88;
+        #websitefetcher-frame-container {
+            margin-top: 22px;
         }
       </style>
       <div style="width:100%;max-width:420px;">
-        <div class="logo">⏩</div>
         <h1>Website Fetcher</h1>
         <div class="button-container">
           <input type="text" id="websitefetcher-url" placeholder="Enter website URL (e.g. https://example.com)">
           <button onclick="Apps.websitefetcher.fetchWebsite()">Fetch Website</button>
         </div>
-        <div id="websitefetcher-frame-container" style="margin-top:22px;"></div>
+        <div id="websitefetcher-frame-container"></div>
       </div>
       <script>
         Apps.websitefetcher = Apps.websitefetcher || {};
