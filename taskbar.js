@@ -24,8 +24,8 @@ window.Taskbar = {
       if (!window.Apps[appId]) return;
       const btn = document.createElement('button');
       btn.className = 'taskbar-app' + (Taskbar.running.includes(appId) ? ' running' : '');
-      // Handle custom HTML for icon (for websitefetcher)
-      btn.innerHTML = typeof window.Apps[appId].icon === 'string' ? window.Apps[appId].icon : (window.Apps[appId].icon || '🗔');
+      // Render icon as HTML (for image support)
+      btn.innerHTML = window.Apps[appId].icon || '🗔';
       btn.title = window.Apps[appId].title;
       btn.onclick = () => window.Apps[appId].open();
       appsDiv.appendChild(btn);
