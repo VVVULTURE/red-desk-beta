@@ -1,269 +1,116 @@
-/* =========================
-   Red Desk Beta OS - styles
-   ========================= */
-
-/* ---- GLOBAL ---- */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-  background: linear-gradient(135deg, #2c003e 0%, #5c0a13 100%);
-  color: #fff;
-  min-height: 100vh;
+:root {
+  --primary: #FF2E2E;
+  --accent: #FF2E2E;
+  --bg: #101018;
+  --card: #18181F;
+  --button: #232323;
+  --button-hover: #FF2E2E;
+  --text: #FFFFFF;
+  --window-bg: #22222B;
+  --window-active: #FF2E2E;
+  --window-inactive: #44445A;
+  --taskbar-bg: #18181FEE;
+  --tray-bg: #18181FCC;
+  --shadow: 0 4px 24px rgba(255,46,46,0.08);
+  --radius: 12px;
+  --wallpaper: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80');
+  --transition: cubic-bezier(.5,.1,.1,1);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  color: #ff004c;
-  margin-top: 0;
-  font-weight: 700;
-  text-shadow: 0 2px 8px #2c003e;
-  letter-spacing: 1px;
+#desktop-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: var(--wallpaper);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transition: background-image 1s var(--transition);
 }
 
-/* ---- WINDOW STYLES ---- */
+#desktop {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Windows container, don't overlap taskbar/tray */
+#windows {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: calc(100vh - 48px);
+  z-index: 2;
+  pointer-events: none;
+}
+
 .os-window {
   position: absolute;
-  background: rgba(60, 0, 13, 0.96);
-  border: 2px solid #ff004c;
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(200,0,50,0.5);
+  background: var(--window-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  min-width: 260px;
+  min-height: 160px;
+  max-width: 100%;
+  max-height: 100%;
+  resize: both;
   overflow: hidden;
-  min-width: 320px;
-  min-height: 220px;
-  z-index: 10;
+  z-index: 3;
+  transition: box-shadow 0.3s, border 0.3s, transform 0.5s var(--transition);
+  pointer-events: auto;
 }
-
+.os-window.active { border: 2px solid var(--window-active); }
+.os-window.inactive { border: 2px solid var(--window-inactive); }
 .os-window-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(90deg, #2c003e 0%, #ff004c 100%);
-  padding: 7px 15px 7px 18px;
-  border-bottom: 2px solid #ff004c;
-}
-
-.os-window-title {
-  font-size: 1.2em;
-  font-weight: 600;
-  color: #fff;
-  letter-spacing: 1px;
-  text-shadow: 0 1px 8px #ff004c88;
+  background: var(--card);
+  padding: 0.5rem 1rem;
+  cursor: move;
+  display: flex; align-items: center; justify-content: space-between;
+  border-radius: var(--radius) var(--radius) 0 0;
   user-select: none;
 }
+.os-window-title { font-family: 'Orbitron', Arial, sans-serif; font-size: 1.1rem; }
 
-.os-window-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ---- RED/TECHY BUTTONS ---- */
+/* --- NEW: Red/Techy Window Control Buttons --- */
 .os-window-controls button {
-  padding: 9px 16px;
-  font-size: 18px;
+  padding: 10px 18px;
+  margin-left: 6px;
+  font-size: 1.2rem;
   font-family: inherit;
-  background-color: #ff004c;
+  background: linear-gradient(90deg, #ff004c 0%, #9e003e 100%);
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-left: 2px;
   box-shadow: 0 2px 8px #90002c33;
   transition: background 0.2s, transform 0.13s, box-shadow 0.2s;
   outline: none;
   position: relative;
 }
-
 .os-window-controls button:hover {
   background: linear-gradient(90deg, #f50944 0%, #a00046 100%);
   transform: scale(1.09);
 }
-
 .os-window-controls button:active {
   background: #a00046;
   box-shadow: 0 1px 4px #ff004c77;
 }
 
+/* Optional: You can make the X button extra glowy on hover */
 .os-window-controls button[title="Close"]:hover {
   background: linear-gradient(90deg, #ff004c 0%, #ff6a90 100%);
   box-shadow: 0 0 16px #ff004c99;
 }
 
-.os-window-controls button[title="Minimize"]:hover {
-  background: linear-gradient(90deg, #ff004c 0%, #ffb3d6 100%);
-}
-
+/* Optional: Subtle variant for Min/Max */
+.os-window-controls button[title="Minimize"]:hover,
 .os-window-controls button[title="Maximize"]:hover {
   background: linear-gradient(90deg, #ff004c 0%, #ffb3d6 100%);
 }
 
-/* ---- WINDOW CONTENT AREA ---- */
-.os-window-content {
-  padding: 20px 18px 14px 18px;
-  background: transparent;
-  height: calc(100% - 48px);
-  overflow: auto;
-}
+/* --- Original window content --- */
+.os-window-content { padding: 1rem; height: calc(100% - 38px); overflow: auto; }
 
-/* ---- APP STYLES (FETCHER, ETC) ---- */
-.fetcher-container {
-  background: rgba(60, 0, 13, 0.95);
-  border: 2px solid #ff004c;
-  border-radius: 16px;
-  padding: 32px 24px 24px 24px;
-  box-shadow: 0 8px 32px rgba(200,0,50,0.5);
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.fetcher-input {
-  width: 90%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ff004c;
-  background: #330013;
-  color: #fff;
-  font-size: 1em;
-  margin-bottom: 16px;
-  outline: none;
-  transition: border 0.2s;
-}
-
-.fetcher-input:focus {
-  border: 2px solid #ff004c;
-  background: #ff004c22;
-}
-
-.fetcher-btn {
-  background: linear-gradient(90deg, #ff004c 0%, #9e003e 100%);
-  color: #fff;
-  font-size: 1.1em;
-  font-family: inherit;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 36px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #b3002c33;
-  transition: background 0.3s, transform 0.15s;
-}
-
-.fetcher-btn:hover {
-  background: linear-gradient(90deg, #f50944 0%, #a00046 100%);
-  transform: scale(1.04);
-}
-
-/* ---- TASKBAR ---- */
+/* --- Taskbar and Tray --- */
 .taskbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 48px;
-  background: linear-gradient(90deg, #2c003e 0%, #5c0a13 100%);
-  border-top: 2px solid #ff004c;
-  display: flex;
-  align-items: center;
-  z-index: 1000;
-  padding: 0 12px;
-}
-
-.taskbar-apps {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-}
-
-.taskbar-app {
-  background: #ff004c;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.3em;
-  margin-right: 5px;
-  padding: 8px 20px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #b3002c33;
-  transition: background 0.3s, transform 0.15s;
-}
-
-.taskbar-app:hover {
-  background: linear-gradient(90deg, #f50944 0%, #a00046 100%);
-  transform: scale(1.07);
-}
-
-.taskbar-start {
-  background: linear-gradient(90deg, #ff004c 0%, #9e003e 100%);
-  color: #fff;
-  font-size: 1.1em;
-  font-family: inherit;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 30px;
-  cursor: pointer;
-  box-shadow: 0 2px 8px #b3002c33;
-  margin-right: 10px;
-  transition: background 0.3s, transform 0.15s;
-}
-
-.taskbar-start:hover {
-  background: linear-gradient(90deg, #f50944 0%, #a00046 100%);
-  transform: scale(1.03);
-}
-
-/* ---- CONTEXT MENU ---- */
-.context-menu {
-  background: #2c003e;
-  border: 2px solid #ff004c;
-  border-radius: 8px;
-  box-shadow: 0 4px 24px #ff004c44;
-  padding: 8px 0;
-  color: #fff;
-  min-width: 180px;
-  z-index: 2000;
-}
-
-.context-menu .menu-item {
-  padding: 10px 22px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.context-menu .menu-item:hover {
-  background: linear-gradient(90deg, #ff004c22 0%, #5c0a13 100%);
-}
-
-/* ---- DESKTOP SHORTCUTS ---- */
-.desktop-shortcut {
-  background: #ff004c;
-  color: #fff;
-  border-radius: 10px;
-  padding: 10px 18px;
-  box-shadow: 0 2px 8px #b3002c33;
-  font-size: 1.1em;
-  margin: 10px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.15s;
-}
-
-.desktop-shortcut:hover {
-  background: linear-gradient(90deg, #f50944 0%, #a00046 100%);
-  transform: scale(1.05);
-}
-
-/* ---- SCROLLBAR ---- */
-::-webkit-scrollbar {
-  width: 12px;
-  background: #330013;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ff004c;
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a00046;
+  /* ...rest of your original styles... */
 }
