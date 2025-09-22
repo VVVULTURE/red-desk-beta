@@ -212,6 +212,116 @@ Apps.fileexplorer = {
   }
 };
 
+// Website Fetcher
+Apps.websitefetcher = {
+  title: 'Website Fetcher',
+  icon: '⏩',
+  open(opts = {}) {
+    WindowManager.create(this, opts);
+  },
+  content() {
+    return `
+      <style>
+        .fetcher-container {
+            background: linear-gradient(135deg, #2c003e 0%, #5c0a13 100%);
+            color: #fff;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            border: 2px solid #ff004c;
+            border-radius: 16px;
+            padding: 32px 24px 24px 24px;
+            box-shadow: 0 8px 32px rgba(200,0,50,0.5);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            margin: 2rem auto;
+        }
+        .logo {
+            font-size: 2.8em;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 8px #ff004c);
+            user-select: none;
+        }
+        h2 {
+            margin: 0 0 18px 0;
+            font-weight: 700;
+            color: #ff004c;
+            text-shadow: 0 2px 8px #2c003e;
+            letter-spacing: 1px;
+        }
+        .fetcher-input {
+            width: 90%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ff004c;
+            background: #330013;
+            color: #fff;
+            font-size: 1em;
+            margin-bottom: 16px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .fetcher-input:focus {
+            border: 2px solid #ff004c;
+            background: #ff004c22;
+        }
+        .fetcher-btn {
+            background: linear-gradient(90deg, #ff004c 0%, #9e003e 100%);
+            color: #fff;
+            font-size: 1.1em;
+            font-family: inherit;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 36px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #b3002c33;
+            transition: background 0.3s, transform 0.15s;
+        }
+        .fetcher-btn:hover {
+            background: linear-gradient(90deg, #f50944 0%, #a00046 100%);
+            transform: scale(1.04);
+        }
+        .footer {
+            margin-top: 22px;
+            font-size: 0.9em;
+            color: #ffb3d6;
+            opacity: 0.65;
+        }
+      </style>
+      <div class="fetcher-container">
+        <div class="logo">⏩</div>
+        <h2>Website Fetcher</h2>
+        <input id="websitefetcher-url" class="fetcher-input" type="text" placeholder="Enter website URL (e.g. https://example.com)">
+        <br>
+        <button class="fetcher-btn" onclick="Apps.websitefetcher.fetchWebsite()">Open Website</button>
+        <div class="footer">Powered by Red Desk Beta</div>
+      </div>
+      <script>
+        window.Apps = window.Apps || {};
+        Apps.websitefetcher = Apps.websitefetcher || {};
+        Apps.websitefetcher.fetchWebsite = function() {
+          var url = document.getElementById('websitefetcher-url').value.trim();
+          if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
+          if (url && /^https?:\/\/.+\..+/i.test(url)) {
+            const win = WindowManager.create({
+              title: url,
+              content: () => '<iframe src="' + url.replace(/"/g, '&quot;') + '" style="width:100%;height:100%;border:none;background:#111;"></iframe>'
+            });
+            WindowManager.maximize(win.querySelector('button[title="Maximize"]'));
+          } else {
+            alert('Please enter a valid URL (e.g. https://example.com)');
+          }
+        };
+        document.getElementById('websitefetcher-url').addEventListener('keydown', function(e){
+          if (e.key === 'Enter') Apps.websitefetcher.fetchWebsite();
+        });
+      </script>
+    `;
+  }
+};
+
+
+
+
 // Calendar (minimal)
 Apps.calendar = {
   title: 'Calendar',
