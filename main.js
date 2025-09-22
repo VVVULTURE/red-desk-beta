@@ -222,94 +222,100 @@ Apps.websitefetcher = {
   content() {
     return `
       <style>
-        .fetcher-container {
-            background: linear-gradient(135deg, #2c003e 0%, #5c0a13 100%);
-            color: #fff;
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            border: 2px solid #ff004c;
-            border-radius: 16px;
-            padding: 32px 24px 24px 24px;
-            box-shadow: 0 8px 32px rgba(200,0,50,0.5);
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            margin: 2rem auto;
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2c003e;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff004c;
+        }
+        .button-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            width: 100%;
+            max-width: 420px;
+            margin-top: 18px;
+        }
+        input[type="text"] {
+            padding: 15px;
+            font-size: 16px;
+            background-color: #5c0a13;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 8px;
+        }
+        button {
+            padding: 15px;
+            font-size: 16px;
+            background-color: #ff004c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #a00046;
         }
         .logo {
-            font-size: 2.8em;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 8px #ff004c);
-            user-select: none;
-        }
-        h2 {
-            margin: 0 0 18px 0;
-            font-weight: 700;
+            font-size: 2.5em;
+            margin-bottom: 10px;
             color: #ff004c;
-            text-shadow: 0 2px 8px #2c003e;
-            letter-spacing: 1px;
-        }
-        .fetcher-input {
-            width: 90%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ff004c;
-            background: #330013;
-            color: #fff;
-            font-size: 1em;
-            margin-bottom: 16px;
-            outline: none;
-            transition: border 0.2s;
-        }
-        .fetcher-input:focus {
-            border: 2px solid #ff004c;
-            background: #ff004c22;
-        }
-        .fetcher-btn {
-            background: linear-gradient(90deg, #ff004c 0%, #9e003e 100%);
-            color: #fff;
-            font-size: 1.1em;
-            font-family: inherit;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 36px;
-            cursor: pointer;
-            box-shadow: 0 2px 8px #b3002c33;
-            transition: background 0.3s, transform 0.15s;
-        }
-        .fetcher-btn:hover {
-            background: linear-gradient(90deg, #f50944 0%, #a00046 100%);
-            transform: scale(1.04);
-        }
-        .footer {
-            margin-top: 22px;
-            font-size: 0.9em;
-            color: #ffb3d6;
-            opacity: 0.65;
+            text-shadow: 0 0 8px #ff004c88;
         }
       </style>
-      <div class="fetcher-container">
+      <div style="width:100%;max-width:420px;">
         <div class="logo">⏩</div>
-        <h2>Website Fetcher</h2>
-        <input id="websitefetcher-url" class="fetcher-input" type="text" placeholder="Enter website URL (e.g. https://example.com)">
-        <br>
-        <button class="fetcher-btn" onclick="Apps.websitefetcher.fetchWebsite()">Open Website</button>
-        <div class="footer">Powered by Red Desk Beta</div>
+        <h1>Website Fetcher</h1>
+        <div class="button-container">
+          <input type="text" id="websitefetcher-url" placeholder="Enter website URL (e.g. https://example.com)">
+          <button onclick="Apps.websitefetcher.fetchWebsite()">Fetch Website</button>
+        </div>
+        <div id="websitefetcher-frame-container" style="margin-top:22px;"></div>
       </div>
       <script>
-        window.Apps = window.Apps || {};
         Apps.websitefetcher = Apps.websitefetcher || {};
         Apps.websitefetcher.fetchWebsite = function() {
-          var url = document.getElementById('websitefetcher-url').value.trim();
-          if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
-          if (url && /^https?:\/\/.+\..+/i.test(url)) {
-            const win = WindowManager.create({
-              title: url,
-              content: () => '<iframe src="' + url.replace(/"/g, '&quot;') + '" style="width:100%;height:100%;border:none;background:#111;"></iframe>'
-            });
-            WindowManager.maximize(win.querySelector('button[title="Maximize"]'));
-          } else {
+          const urlInput = document.getElementById('websitefetcher-url');
+          let url = urlInput.value.trim();
+          if (!/^https?:\\/\\//i.test(url)) url = 'https://' + url;
+
+          if (!/^https?:\\/\\/.+\\..+/i.test(url)) {
             alert('Please enter a valid URL (e.g. https://example.com)');
+            return;
           }
+
+          const frameContainer = document.getElementById('websitefetcher-frame-container');
+          frameContainer.innerHTML = '<p style="color:#ff004c;">Loading...</p>';
+
+          fetch(url)
+            .then(res => {
+              if (!res.ok) throw new Error('Fetch failed. Status: ' + res.status);
+              return res.text();
+            })
+            .then(html => {
+              // Inject a <base> tag if missing
+              let baseTag = '<base href="' + url + '">';
+              if (!/<base\\b/i.test(html)) {
+                html = baseTag + html;
+              }
+              // Display in iframe via Blob
+              const blob = new Blob([html], { type: "text/html" });
+              const blobUrl = URL.createObjectURL(blob);
+              frameContainer.innerHTML = '<iframe src="' + blobUrl + '" style="width:100%;height:520px;border-radius:8px;border:2px solid #ff004c;background:#1a001e;"></iframe>';
+            })
+            .catch(e => {
+              frameContainer.innerHTML = '<p style="color:#ff004c;">Failed to fetch website.<br>' + e.message + '</p>';
+            });
         };
         document.getElementById('websitefetcher-url').addEventListener('keydown', function(e){
           if (e.key === 'Enter') Apps.websitefetcher.fetchWebsite();
