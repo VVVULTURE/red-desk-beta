@@ -1,9 +1,6 @@
-// Website Fetcher app with custom logo and techy red style
-
 window.Apps = window.Apps || {};
 Apps.websitefetcher = {
   title: 'Website Fetcher',
-  // Use your uploaded logo file here
   icon: `<img src="assets/fetcher-logo.png" alt="Website Fetcher" style="width:1.6em;height:1.6em;vertical-align:middle;border-radius:50%;background:#232323;">`,
   open(opts = {}) {
     WindowManager.create(this, opts);
