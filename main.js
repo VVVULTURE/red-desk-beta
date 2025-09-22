@@ -157,7 +157,7 @@ Apps.terminal = {
       if (cmd === 'sudo apt install neofetch' || cmd === 'sudo apt run neofetch') {
         const appInfo = {
           title: 'neofetch',
-          content: () => `<img src="neofetch.png" style="width:100%;height:100%;object-fit:contain;background:black;">`
+          content: () => `<img src="assets/neofetch.png" style="width:100%;height:100%;object-fit:contain;background:black;">`
         };
         const win = WindowManager.create(appInfo, { width: '800px', height: '600px' });
         const maxBtn = win.querySelector('button[title="Maximize"]');
