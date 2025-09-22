@@ -21,8 +21,7 @@ window.Taskbar = {
       if (!window.Apps[appId]) return;
       const btn = document.createElement('button');
       btn.className = 'taskbar-app' + (Taskbar.running.includes(appId) ? ' running' : '');
-      // This line is critical:
-      btn.innerHTML = window.Apps[appId].icon || '🗔';
+      btn.innerHTML = window.Apps[appId].icon || '🗔'; // This supports <img> tags!
       btn.title = window.Apps[appId].title;
       btn.onclick = () => window.Apps[appId].open();
       appsDiv.appendChild(btn);
