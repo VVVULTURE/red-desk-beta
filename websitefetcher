@@ -1,5 +1,4 @@
-// apps/websitefetcher.js
-// Website Fetcher app with custom logo and style
+// Website Fetcher app with custom logo and techy red style
 
 window.Apps = window.Apps || {};
 Apps.websitefetcher = {
@@ -90,14 +89,18 @@ Apps.websitefetcher = {
     }
     if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
     status.textContent = "Opening: " + url;
-    const appInfo = {
-      title: 'Web: ' + new URL(url).hostname,
-      content: () => `<iframe src="${url}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`
-    };
-    const win = WindowManager.create(appInfo);
-    const maxBtn = win.querySelector('button[title="Maximize"]');
-    WindowManager.maximize(maxBtn);
-    status.textContent = "Opened in window!";
+    try {
+      const appInfo = {
+        title: 'Web: ' + new URL(url).hostname,
+        content: () => `<iframe src="${url}" style="width:100%;height:100%;border:none;" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>`
+      };
+      const win = WindowManager.create(appInfo);
+      const maxBtn = win.querySelector('button[title="Maximize"]');
+      WindowManager.maximize(maxBtn);
+      status.textContent = "Opened in window!";
+    } catch (err) {
+      status.textContent = "Error: Invalid URL.";
+    }
     setTimeout(()=>{status.textContent = "";}, 3500);
     input.value = '';
   }
