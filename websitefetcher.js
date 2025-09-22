@@ -1,3 +1,5 @@
+// Website Fetcher app with custom logo and techy red style
+
 window.Apps = window.Apps || {};
 Apps.websitefetcher = {
   title: 'Website Fetcher',
