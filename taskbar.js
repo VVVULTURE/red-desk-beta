@@ -1,5 +1,5 @@
 window.Taskbar = {
-  pinned: ['websitefetcher', 'texteditor', 'calculator', 'settings', 'terminal', 'fileexplorer', 'games', 'executor'],
+  pinned: ['texteditor', 'calculator', 'settings', 'terminal', 'fileexplorer', 'games', 'executor'],
   running: [],
   init() {
     const bar = document.getElementById('taskbar');
