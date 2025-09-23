@@ -50,8 +50,8 @@
   color: var(--text);
   min-width: 260px;
   min-height: 160px;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 96vw;
+  max-height: calc(92vh - 48px);
   resize: both;
   overflow: hidden;
   z-index: 3;
@@ -79,77 +79,83 @@
 
 /* --- Taskbar and Tray --- */
 .taskbar {
-  position: fixed;
-  left: 0; right: 0; bottom: 0; height: 48px;
+  position: fixed; bottom: 0; left: 0; width: calc(100vw - 180px); height: 48px;
   background: var(--taskbar-bg);
-  display: flex; align-items: center; padding: 0 1rem;
+  display: flex; align-items: center; justify-content: flex-start;
   z-index: 10;
-  box-shadow: 0 -2px 24px var(--window-active);
+  box-shadow: 0 -2px 24px var(--shadow);
+  border-radius: var(--radius) 0 0 0;
+  padding: 0 1.2rem;
 }
-.taskbar-apps { flex: 1; display: flex; align-items: center; }
-.taskbar-app {
-  background: var(--button); color: var(--text); border-radius: var(--radius);
-  font-size: 1.1rem; margin-right: 0.5rem; padding: 0.5rem 1.6rem;
-  cursor: pointer; transition: background 0.2s;
-  border: none; box-shadow: 0 2px 12px #0004;
-}
-.taskbar-app:hover, .taskbar-app.running { background: var(--button-hover); color: #fff; }
-.taskbar-start {
-  background: var(--primary); color: #fff; border-radius: var(--radius);
-  font-size: 1.1rem; font-family: 'Orbitron', Arial, sans-serif;
-  padding: 0.7rem 1.6rem; border: none; cursor: pointer; margin-right: 0.6rem;
-  box-shadow: 0 2px 12px #ff2e2e33; transition: background 0.2s;
-}
-.taskbar-start:hover { background: var(--accent); }
+.taskbar-apps {display: flex; gap: 1rem;}
+.taskbar-app {background: none; border: none; color: var(--primary); font-size: 1.4rem; cursor: pointer; margin: 0 0.2rem;}
+.taskbar-app.running {color: var(--accent);}
+.taskbar-start {font-family: 'Orbitron'; font-size: 1.2rem; background: var(--accent); color: #fff; border-radius: var(--radius); padding: 0.6rem 1rem; cursor: pointer;}
 .tray {
-  position: fixed; right: 1.4rem; bottom: 54px; z-index: 20;
-  background: var(--tray-bg); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 0.5rem 1.2rem; color: var(--text);
-  font-size: 1.03rem; display: flex; align-items: center;
+  position: fixed; bottom: 0; right: 0; width: 180px; height: 48px;
+  background: var(--tray-bg);
+  display: flex; align-items: center; gap: 1rem; justify-content: flex-end;
+  z-index: 11;
+  border-radius: 0 var(--radius) 0 0;
+  padding: 0 1.2rem;
 }
-.tray-time { font-family: 'Orbitron', Arial, sans-serif; margin-left: 1.2rem; }
-.tray-icon { margin-right: 0.9rem; font-size: 1.04rem; cursor: pointer; }
-.tray-icon:hover { color: var(--accent); }
-.tray-notifs { background: var(--accent); color: #fff; border-radius: 99px; padding: 0 0.45em; font-size: 0.95em; margin-left: 0.6em; }
-
-.context-menu {
-  position: absolute;
+.tray-clock {font-family: 'Orbitron'; font-size: 1.1rem; color: var(--accent);}
+.tray-icon {font-size: 1.3rem; color: var(--primary); margin-left: 0.6rem;}
+/* Context menu */
+#context-menu {
+  position: fixed;
+  display: none;
+  z-index: 9999;
   background: var(--card);
-  border: 2px solid var(--window-active);
-  border-radius: var(--radius);
-  box-shadow: 0 4px 24px var(--window-active);
-  min-width: 160px;
-  z-index: 100;
-  padding: 0.3rem 0;
-}
-.context-menu .menu-item {
-  padding: 0.7rem 1.2rem;
-  cursor: pointer;
-  font-size: 1.06em;
-  border: none;
-  background: none;
   color: var(--text);
-  transition: background 0.12s, color 0.12s;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  min-width: 160px;
+  padding: 0.4rem 0;
 }
-.context-menu .menu-item:hover {
-  background: var(--window-active); color: #fff;
+.context-menu-item {
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.18s;
 }
-
-.desktop-shortcut {
-  background: var(--card); color: var(--accent); border-radius: var(--radius);
-  padding: 0.7rem 1.2rem; margin: 1.2rem; font-size: 1.13em; cursor: pointer;
-  box-shadow: var(--shadow); transition: background 0.2s, color 0.2s;
+.context-menu-item:hover {
+  background: var(--button-hover);
+  color: #fff;
 }
-.desktop-shortcut:hover { background: var(--window-active); color: #fff; }
-
-::-webkit-scrollbar {
-  width: 12px;
-  background: var(--card);
+.game-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 1rem;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--window-active);
-  border-radius: 6px;
+.game-btn {
+  background: var(--button);
+  color: var(--primary);
+  font-family: 'Orbitron', Arial, sans-serif;
+  font-size: 1.2rem;
+  padding: 1.4rem 2.2rem;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, transform 0.22s;
+  outline: none;
+  position: relative;
+  overflow: hidden;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--accent);
+.game-btn:hover {
+  background: var(--button-hover);
+  color: var(--text);
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 6px 28px var(--shadow);
+}
+/* Animations, drag-drop, snap, and more apps can be added here */
+@media (max-width: 700px) {
+  .taskbar { width: 100vw; height: 38px; padding: 0 0.4rem; border-radius: var(--radius) var(--radius) 0 0;}
+  .tray { width: 100vw; height: 38px; left: 0; right: 0; bottom: 38px; border-radius: 0 0 var(--radius) var(--radius;}
+  #windows { height: calc(100vh - 76px); }
+  .os-window { min-width: 180px; max-height: calc(92vh - 76px);}
+  .game-btns {gap: 1rem;}
 }
