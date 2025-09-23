@@ -25,7 +25,7 @@ Apps.fetcher = window.Apps.fetcher;
 
 window.Apps = window.Apps || {};
 Apps.fetcher = {
-  title: 'Web Browser',
+  title: 'Website Fetcher',
   icon: '🌐',
   open(opts={}) {
     WindowManager.create(this, opts);
