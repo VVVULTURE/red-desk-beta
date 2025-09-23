@@ -15,6 +15,9 @@ Apps.texteditor = {
 
 // Import Games app logic from apps/games.js (do not redefine here!)
 
+// Fetcher (web browser, uses your fetch logic)
+Apps.fetcher = window.Apps.fetcher;
+
 // HTML Executor
 Apps.executor = {
   title: 'HTML Executor',
