@@ -21,6 +21,7 @@ Apps.games = {
     { name: 'Fancade', url: 'https://fancade-gules.vercel.app/' },
     { name: '1v1.lol (Beta)', url: 'https://1v1-lol-online-github-io-ten.vercel.app/' },
     { name: 'Getaway Shootout', url: 'https://getaway-shootout-ten.vercel.app/' },
+    { name: 'Rooftop Snipers', url: 'https://rooftop-snipers-rose.vercel.app/' },
   ],
   content() {
     return `
