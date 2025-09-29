@@ -23,7 +23,7 @@ Apps.games = {
     { name: 'Getaway Shootout', url: 'https://getaway-shootout-ten.vercel.app/' },
     { name: 'Rooftop Snipers', url: 'https://rooftop-snipers-rose.vercel.app/' },
      { name: 'Basket Random', url: 'https://basket-random-topaz.vercel.app/' },
-     { name: 'Basket Random', url: 'https://happy-wheels-piyh.vercel.app/' },
+     { name: 'Happy Wheels', url: 'https://happy-wheels-piyh.vercel.app/' },
   ],
   content() {
     return `
