@@ -19,7 +19,7 @@ Apps.games = {
     { name: 'Bitlife', url: 'https://bitlife1.vercel.app' },
     { name: 'Getaway Shootout', url: 'https://getaway-shootout-ten.vercel.app/' },
     { name: 'Rooftop Snipers', url: 'https://rooftop-snipers-rose.vercel.app/' },
-     { name: 'Happy Wheels', url: 'https://happy-wheels-piyh.vercel.app/' },
+     { name: 'GunSpin', url: 'https://gun-spin-dusky.vercel.app/' },
   ],
   content() {
     return `
