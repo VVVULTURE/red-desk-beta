@@ -20,6 +20,7 @@ Apps.games = {
     { name: 'Getaway Shootout', url: 'https://getaway-shootout-ten.vercel.app/' },
     { name: 'Rooftop Snipers', url: 'https://rooftop-snipers-rose.vercel.app/' },
      { name: 'GunSpin', url: 'https://gun-spin-dusky.vercel.app/' },
+     { name: 'Idle Ants', url: 'https://idle-ants-mu.vercel.app/' },
   ],
   content() {
     return `
