@@ -21,6 +21,7 @@ Apps.games = {
     { name: 'Rooftop Snipers', url: 'https://rooftop-snipers-rose.vercel.app/' },
      { name: 'GunSpin', url: 'https://gun-spin-dusky.vercel.app/' },
      { name: 'Slope', url: 'https://slope-game-fsq3.vercel.app/' },
+    { name: 'Idle Ants (working)', url: 'https://idle-ants1.vercel.app/' },
     
   ],
   content() {
