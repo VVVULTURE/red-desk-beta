@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => Taskbar.init());
     btn.id = "taskbar-form-btn";
     btn.className = "taskbar-form-btn";
     btn.title = "Open form";
-    btn.textContent = "📝"; // the emoji you requested
+    btn.textContent = "📋"; // the emoji you requested
 
     // Put the button inside the anchor, and the anchor inside the right wrapper
     a.appendChild(btn);
