@@ -159,34 +159,37 @@
   .os-window { min-width: 180px; max-height: calc(92vh - 76px);}
   .game-btns {gap: 1rem;}
 }
-/* --- Strong reset for the taskbar form link (removes white box) --- */
+/* ===== Taskbar Google Form emoji: size + spacing to match other icons ===== */
 
-/* Ensure taskbar is flex so .taskbar-right can push to far right */
+/* Ensure the taskbar is a flex container so spacing works predictably */
 #taskbar, .taskbar, #taskbar-container, .taskbar-container {
   display: flex !important;
   align-items: center !important;
 }
 
-/* Right wrapper (keep as before) */
+/* Right-side wrapper: push to far right and match spacing behavior */
 .taskbar-right {
   margin-left: auto !important;
   display: flex !important;
   align-items: center !important;
+  gap: 8px !important;        /* even spacing between icons in this area */
+  padding-right: 8px !important; /* match tray padding */
 }
 
-/* VERY specific reset for the anchor itself */
+/* Anchor wrapper: remove default styles and set size to match other icons */
+/* Adjust the width/height value if your other icons are larger (e.g., 40px) */
 a#taskbar-form-btn,
-#taskbar a#taskbar-form-btn,
-.taskbar a#taskbar-form-btn,
 .taskbar-right > a#taskbar-form-btn {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  width: 36px !important;    /* icon container width — tweak if needed */
+  height: 36px !important;   /* icon container height — tweak if needed */
+  padding: 0 !important;
+  margin: 0 6px !important;  /* horizontal spacing consistent with other icons */
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
   box-shadow: none !important;
   text-decoration: none !important;
   -webkit-appearance: none !important;
@@ -194,39 +197,40 @@ a#taskbar-form-btn,
   outline: none !important;
   color: inherit !important;
   line-height: 1 !important;
+  border-radius: 6px !important; /* same rounding as other icons */
 }
 
-/* Emoji span styling (also reset) */
+/* Emoji sizing and centering */
 a#taskbar-form-btn > .taskbar-form-emoji,
-#taskbar .taskbar-form-emoji,
-.taskbar .taskbar-form-emoji {
+.taskbar-form-emoji {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-size: 20px !important;  /* emoji size — increase (22-24) if other icons are bigger */
+  line-height: 1 !important;
   padding: 0 !important;
   margin: 0 !important;
-  font-size: 20px !important;
-  line-height: 1 !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
 
-/* Hover visual (subtle) */
+/* Hover effect consistent with other icons */
 a#taskbar-form-btn:hover > .taskbar-form-emoji {
   background: rgba(0,0,0,0.04) !important;
   border-radius: 6px !important;
 }
 
-/* Focus ring — visible but not a white box */
+/* Focus ring: visible but not a white box */
 a#taskbar-form-btn:focus {
   outline: none !important;
   box-shadow: 0 0 0 3px rgba(21,156,228,0.28) !important;
   border-radius: 8px !important;
 }
 
-/* If the parent applies background to anchors inside a specific taskbar selector,
-   force transparency with a higher-specificity fallback */
+/* Fallback for aggressive global rules that might add backgrounds to anchors */
 #taskbar .taskbar-right > a#taskbar-form-btn,
 .taskbar .taskbar-right > a#taskbar-form-btn {
   background: transparent !important;
