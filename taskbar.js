@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => Taskbar.init());
 // (Paste this into your existing taskbar.js file or append it to the end.
 // If you append, the script will add the button when the DOM is loaded.)
 
-// taskbar.js — minimal drop-in to add the emoji link with no native button styling
+// taskbar.js — add emoji link (no native <button>)
 (function () {
   const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScaYcFE6kxkrrnx09OX8QLJZluyDLUeH65pDbRa-I2DapeQ7A/viewform?usp=dialog";
 
@@ -100,3 +100,4 @@ document.addEventListener('DOMContentLoaded', () => Taskbar.init());
     });
   });
 })();
+
