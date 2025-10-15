@@ -159,3 +159,44 @@
   .os-window { min-width: 180px; max-height: calc(92vh - 76px);}
   .game-btns {gap: 1rem;}
 }
+/* ---- Added rules for the Google Form emoji button ---- */
+
+/* Ensure the taskbar is a flex container. 
+   If your project already sets .taskbar to display:flex, these rules won't override anything important. */
+.taskbar,
+.taskbar-container,
+#taskbar,
+#taskbar-container {
+  display: flex; /* harmless if already set */
+  align-items: center;
+}
+
+/* Wrapper that pushes its contents to the far right of the taskbar */
+.taskbar-right {
+  margin-left: auto; /* pushes to the far right */
+  display: flex;
+  align-items: center;
+}
+
+/* The emoji button */
+.taskbar-form-btn {
+  font-size: 20px;           /* emoji size */
+  line-height: 1;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.12s ease;
+}
+
+/* Hover / focus styles (non-invasive) */
+.taskbar-form-btn:hover,
+.taskbar-form-btn:focus {
+  background-color: rgba(0,0,0,0.06);
+  outline: none;
+}
+
+/* If your project uses dark theme, keep the hover subtle:
+   You can tweak the RGBA color above if needed. */
+
