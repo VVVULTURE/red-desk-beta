@@ -196,6 +196,57 @@
   background-color: rgba(0,0,0,0.06);
   outline: none;
 }
+/* Replace/append these rules to remove the white box around the emoji button */
+
+/* Ensure the anchor wrapper doesn't add background or padding */
+.taskbar-right > a {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stronger reset for the button itself */
+.taskbar-form-btn {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: inherit;
+  border-radius: 6px;
+}
+
+/* Subtle hover effect (optional) */
+.taskbar-form-btn:hover {
+  background-color: rgba(0,0,0,0.04) !important;
+}
+
+/* Accessible focus — visible but not a white box */
+.taskbar-form-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(21,156,228,0.28) !important; /* visible focus ring */
+}
+
+/* If your project applies styles to all buttons, this forces the reset for just this button */
+button#taskbar-form-btn,
+.taskbar-form-btn {
+  background-clip: padding-box !important;
+  -webkit-background-clip: padding-box !important;
+}
 
 /* If your project uses dark theme, keep the hover subtle:
    You can tweak the RGBA color above if needed. */
