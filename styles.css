@@ -159,95 +159,77 @@
   .os-window { min-width: 180px; max-height: calc(92vh - 76px);}
   .game-btns {gap: 1rem;}
 }
-/* ---- Added rules for the Google Form emoji button ---- */
+/* --- Strong reset for the taskbar form link (removes white box) --- */
 
-/* Ensure the taskbar is a flex container. 
-   If your project already sets .taskbar to display:flex, these rules won't override anything important. */
-.taskbar,
-.taskbar-container,
-#taskbar,
-#taskbar-container {
-  display: flex; /* harmless if already set */
-  align-items: center;
+/* Ensure taskbar is flex so .taskbar-right can push to far right */
+#taskbar, .taskbar, #taskbar-container, .taskbar-container {
+  display: flex !important;
+  align-items: center !important;
 }
 
-/* Wrapper that pushes its contents to the far right of the taskbar */
+/* Right wrapper (keep as before) */
 .taskbar-right {
-  margin-left: auto; /* pushes to the far right */
-  display: flex;
-  align-items: center;
+  margin-left: auto !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
-/* The emoji button */
-.taskbar-form-btn {
-  font-size: 20px;           /* emoji size */
-  line-height: 1;
-  padding: 6px 8px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: background-color 0.12s ease;
-}
-
-/* Hover / focus styles (non-invasive) */
-.taskbar-form-btn:hover,
-.taskbar-form-btn:focus {
-  background-color: rgba(0,0,0,0.06);
-  outline: none;
-}
-/* Replace/append these rules to remove the white box around the emoji button */
-
-/* Ensure the anchor wrapper doesn't add background or padding */
-.taskbar-right > a {
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Stronger reset for the button itself */
-.taskbar-form-btn {
+/* VERY specific reset for the anchor itself */
+a#taskbar-form-btn,
+#taskbar a#taskbar-form-btn,
+.taskbar a#taskbar-form-btn,
+.taskbar-right > a#taskbar-form-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
   box-shadow: none !important;
+  text-decoration: none !important;
   -webkit-appearance: none !important;
   appearance: none !important;
-  padding: 4px 6px !important;
+  outline: none !important;
+  color: inherit !important;
+  line-height: 1 !important;
+}
+
+/* Emoji span styling (also reset) */
+a#taskbar-form-btn > .taskbar-form-emoji,
+#taskbar .taskbar-form-emoji,
+.taskbar .taskbar-form-emoji {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
   margin: 0 !important;
-  font-size: 20px;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: inherit;
-  border-radius: 6px;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-/* Subtle hover effect (optional) */
-.taskbar-form-btn:hover {
-  background-color: rgba(0,0,0,0.04) !important;
+/* Hover visual (subtle) */
+a#taskbar-form-btn:hover > .taskbar-form-emoji {
+  background: rgba(0,0,0,0.04) !important;
+  border-radius: 6px !important;
 }
 
-/* Accessible focus — visible but not a white box */
-.taskbar-form-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(21,156,228,0.28) !important; /* visible focus ring */
+/* Focus ring — visible but not a white box */
+a#taskbar-form-btn:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(21,156,228,0.28) !important;
+  border-radius: 8px !important;
 }
 
-/* If your project applies styles to all buttons, this forces the reset for just this button */
-button#taskbar-form-btn,
-.taskbar-form-btn {
-  background-clip: padding-box !important;
-  -webkit-background-clip: padding-box !important;
+/* If the parent applies background to anchors inside a specific taskbar selector,
+   force transparency with a higher-specificity fallback */
+#taskbar .taskbar-right > a#taskbar-form-btn,
+.taskbar .taskbar-right > a#taskbar-form-btn {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
-
-/* If your project uses dark theme, keep the hover subtle:
-   You can tweak the RGBA color above if needed. */
-
